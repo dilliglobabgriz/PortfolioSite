@@ -37,6 +37,7 @@
             padding: 20px;
             margin: 20px 0;
             text-align: center;
+            display: none; /* Initially hidden */
         }
         .box a {
             display: block;
@@ -56,7 +57,48 @@
             font-size: 2em; /* Adjust the font size as needed */
             text-align: center;
         }
+        .dropdown-btn {
+            background-color: #333;
+            color: #ffffff;
+            padding: 10px 30px; /* Increased padding */
+            border: none;
+            cursor: pointer;
+            font-size: 1em; /* Increased font size */
+            position: relative; /* Needed for positioning the arrow */
+            margin-bottom: 20px;
+        }
+        .dropdown-btn:hover {
+            background-color: #575757;
+        }
+        .dropdown-btn::after {
+            content: '';
+            position: absolute;
+            right: 10px; /* Adjust the right position as needed */
+            top: 50%;
+            transform: translateY(-50%);
+            border: solid #ffffff;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 5px; /* Adjust the size of the arrow */
+            transform: rotate(45deg);
+            transition: transform 0.3s ease; /* Smooth transition */
+        }
+        .dropdown-btn.active::after {
+            transform: rotate(-135deg); /* Rotate to point up */
+        }
     </style>
+    <script>
+        function toggleDropdown(boxId, button) {
+            var box = document.getElementById(boxId);
+            if (box.style.display === 'none' || box.style.display === '') {
+                box.style.display = 'block';
+                button.classList.add('active');
+            } else {
+                box.style.display = 'none';
+                button.classList.remove('active');
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="navbar">
@@ -65,10 +107,19 @@
     </div>
     <div class="container">
         <h1>My Portfolio Homepage</h1>
-        <div class="box">
+
+        <button class="dropdown-btn" onclick="toggleDropdown('dropdown-box-1', this)">Word Hunt in PyGame</button>
+        <div id="dropdown-box-1" class="box">
             <p>Check out my Word Hunt GitHub repo:</p>
             <a href="https://github.com/dilliglobabgriz/Word_Hunt/tree/main" target="_blank">Repository Link</a>
             <img src="word_hunt_ss.png" alt="Word Hunt Screenshot">
+        </div>
+
+        <button class="dropdown-btn" onclick="toggleDropdown('dropdown-box-2', this)">Poker ML Model</button>
+        <div id="dropdown-box-2" class="box">
+            <p>Check out my Five Card Draw GitHub repo:</p>
+            <a href="https://github.com/dilliglobabgriz/Five_Card_Draw" target="_blank">Repository Link</a>
+            <img src="five_card_draw_ss.png" alt="Poker Screenshot">
         </div>
     </div>
 </body>
